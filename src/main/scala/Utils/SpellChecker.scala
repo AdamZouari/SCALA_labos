@@ -3,12 +3,11 @@ package Utils
 object SpellChecker {
   /**
     * Calculate the Levenshtein distance between two words.
+    * (source ; https://oldfashionedsoftware.com/tag/levenshtein-distance/)
     * @param s1 the first word
     * @param s2 the second word
     * @return an integer value, which indicates the Levenshtein distance between "s1" and "s2"
     */
-  // TODO - Step 2
-  // source https://oldfashionedsoftware.com/tag/levenshtein-distance/
   def stringDistance(s1: String, s2: String): Int = {
 
     val memo = scala.collection.mutable.Map[(List[Char],List[Char]),Int]()
@@ -25,6 +24,7 @@ object SpellChecker {
         }
       memo((s1,s2))
     }
+
     sd( s1.toList, s2.toList )
   }
 
@@ -34,13 +34,10 @@ object SpellChecker {
     * @param misspelledWord the misspelled word to correct
     * @return the closest word from "misspelledWord"
     */
-  // TODO - Step 2
-  def getClosestWordInDictionary(misspelledWord: String): String = {
+  def getClosestWordInDictionary(misspelledWord: String): String = misspelledWord match {
 
-    // it's a pseudonym or a number
-    if (misspelledWord.startsWith("_") || misspelledWord.matches("[0-9]+"))
-      misspelledWord
-    else{
+    case numberOrPseudo if isNumber(misspelledWord) || isPseudo(misspelledWord)=> misspelledWord
+    case word => {
 
       var distances = Map[String,Int]()
       for((k,v) <- Dictionary.dictionary )
@@ -49,4 +46,8 @@ object SpellChecker {
       distances.toSeq.sortBy(_._2).head._1
     }
   }
+
+  def isNumber (s: String): Boolean = s.matches("[0-9]+")
+  def isPseudo (s: String): Boolean = s.startsWith("_")
 }
+

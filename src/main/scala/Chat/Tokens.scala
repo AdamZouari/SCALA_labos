@@ -21,4 +21,5 @@ object Tokens {
   val PSEUDO: Token      = 9
   val NUM: Token         = 10
   val EOL: Token         = 11
+
 }
