@@ -40,8 +40,8 @@ class Tokenizer(input: String) {
     case "croissant" => (word, Tokens.CROISSANT)
     case "et" => (word, Tokens.ET)
     case "ou" => (word, Tokens.OU)
-    case pseudo if SpellChecker.isPseudo(word) => (word, Tokens.PSEUDO)
-    case number if SpellChecker.isNumber(word) => (word, Tokens.NUM)
+    case pseudo if Dictionary.isPseudo(word) => (word, Tokens.PSEUDO)
+    case number if Dictionary.isNumber(word) => (word, Tokens.NUM)
     case _ => (word, Tokens.UNKNOWN)
   }
 
@@ -51,7 +51,7 @@ class Tokenizer(input: String) {
     */
   def nextToken(): (String, Token) = tokenized match {
 
-    case empty if tokenized.isEmpty => ("eol",Tokens.EOL)
+    case empty if tokenized.isEmpty => ("EOL",Tokens.EOL)
     case _ => {
       val token = tokenized.head
       tokenized = tokenized.tail
