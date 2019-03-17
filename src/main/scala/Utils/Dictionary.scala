@@ -25,4 +25,15 @@ object Dictionary {
     "svp" -> "svp",
     "stp" -> "svp"
   )
+ 
+ /**
+    * Check if the word is a number
+    */
+  def isNumber (s: String): Boolean = s.matches("[0-9]+")
+
+  /**
+    * Separate the word is a pseudo
+    */
+  def isPseudo (s: String): Boolean = s.startsWith("_")
+
 }
