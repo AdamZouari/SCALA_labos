@@ -36,18 +36,17 @@ object SpellChecker {
     */
   def getClosestWordInDictionary(misspelledWord: String): String = misspelledWord match {
 
-    case numberOrPseudo if isNumber(misspelledWord) || isPseudo(misspelledWord)=> misspelledWord
+    case numberOrPseudo if Dictionary.isNumber(misspelledWord) || Dictionary.isPseudo(misspelledWord) => misspelledWord
     case word => {
 
-      var distances = Map[String,Int]()
-      for((k,v) <- Dictionary.dictionary )
-        distances += (k -> stringDistance(misspelledWord,k))
-
-      distances.toSeq.sortBy(_._2).head._1
+      var distance = (misspelledWord,Int.MaxValue)
+      for ((k, v) <- Dictionary.dictionary) {
+        val newDistance = (k,stringDistance(misspelledWord, k))
+        if (newDistance._2 < distance._2)
+          distance = newDistance
+      }
+      distance._1
     }
   }
-
-  def isNumber (s: String): Boolean = s.matches("[0-9]+")
-  def isPseudo (s: String): Boolean = s.startsWith("_")
 }
 
