@@ -19,7 +19,7 @@ class Tokenizer(input: String) {
     for (x <- cleaned) {
       val word = x match {
         case dico if Dictionary.dictionary.contains(x) => Dictionary.dictionary(x)
-        case numberOrPseudo if SpellChecker.isNumber(x) || SpellChecker.isPseudo(x) =>  x
+        case numberOrPseudo if Dictionary.isNumber(x) || Dictionary.isPseudo(x) =>  x
         case _ => Dictionary.dictionary(SpellChecker.getClosestWordInDictionary(x))
       }
       tokenized += wordToToken(word)
