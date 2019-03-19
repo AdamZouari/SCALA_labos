@@ -1,6 +1,6 @@
-package Utils
+package main.scala.Utils
 
-import Utils.Dictionary.dictionary
+import Dictionary.dictionary
 
 object SpellChecker {
   /*

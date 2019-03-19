@@ -1,4 +1,4 @@
-package Utils
+package main.scala.Utils
 
 /**
 * Contains the dictionary of the application, which is used to validate, correct and normalize words entered by the

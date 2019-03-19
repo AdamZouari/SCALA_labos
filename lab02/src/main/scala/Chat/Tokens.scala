@@ -1,4 +1,4 @@
-package Chat
+package main.scala.Chat
 
 object Tokens {
   type Token = Int

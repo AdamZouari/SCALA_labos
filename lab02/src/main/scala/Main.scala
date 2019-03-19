@@ -1,3 +1,5 @@
+package main.scala
+
 import Chat.{Parser, Tokenizer}
 import Utils.ClinksCalculator._
 

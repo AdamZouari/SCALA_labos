@@ -1,4 +1,4 @@
-package Data
+package main.scala.Data
 
 object Products {
   // TODO: step 2 - here your will have an attribute that will contain the products (e.g. "bière"), their types (e.g. "Boxer"), and their prices (e.g. 2.0).

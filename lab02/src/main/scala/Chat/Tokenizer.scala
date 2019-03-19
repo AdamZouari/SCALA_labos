@@ -1,8 +1,8 @@
-package Chat
+package main.scala.Chat
 
-import Chat.Tokens._
-import Utils.Dictionary.dictionary
-import Utils.SpellChecker._
+import Tokens._
+import main.scala.Utils.Dictionary.dictionary
+import main.scala.Utils.SpellChecker._
 
 class Tokenizer(input: String) {
   var tokens: Array[(String, Token)] = Array()

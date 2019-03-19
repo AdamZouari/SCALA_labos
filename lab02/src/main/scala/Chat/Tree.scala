@@ -1,4 +1,4 @@
-package Chat
+package main.scala.Chat
 
 // TODO - step 3
 object Tree {

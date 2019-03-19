@@ -1,6 +1,6 @@
-package Chat
+package main.scala.Chat
 
-import Chat.Tokens._
+import Tokens._
 import Tree._
 
 // TODO - step 4

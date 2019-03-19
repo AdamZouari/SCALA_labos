@@ -1,4 +1,4 @@
-package Data
+package main.scala.Data
 
 import scala.collection.mutable
 
