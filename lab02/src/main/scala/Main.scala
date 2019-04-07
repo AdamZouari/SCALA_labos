@@ -2,10 +2,12 @@ package main.scala
 
 import Chat.{Parser, Tokenizer}
 import Utils.ClinksCalculator._
+import Data.Products
 
 import scala.io.StdIn
 
 object Main extends App {
+
 
   println("Bienvenue au Chill-Out !")
 

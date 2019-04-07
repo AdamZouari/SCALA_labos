@@ -10,6 +10,7 @@ object Tokens {
   val DE: Token          = 17
   val LE: Token          = 18
   val MON: Token         = 19
+  val SOLDE : Token      = 27
 
   val QUEL: Token        = 20
   val PRIX: Token        = 21
@@ -20,6 +21,7 @@ object Tokens {
   val CONNAITRE: Token   = 23
   val VALOIR: Token      = 24
   val COMMANDER: Token   = 25
+  val COUTER : Token     = 28
   // Operators
   val ET: Token          = 4
   val OU: Token          = 5

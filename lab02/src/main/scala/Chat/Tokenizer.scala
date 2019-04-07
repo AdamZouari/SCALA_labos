@@ -1,6 +1,7 @@
 package main.scala.Chat
 
 import Tokens._
+import main.scala.Data.Products
 import main.scala.Utils.Dictionary.dictionary
 import main.scala.Utils.SpellChecker._
 
@@ -21,6 +22,26 @@ class Tokenizer(input: String) {
     case "affame" => AFFAME
     case p if p.startsWith("_") && p.length > 1 => PSEUDO // If the word starts with '_' and has more than one character it is a pseudonym.
     case n if n.forall(Character.isDigit) => NUM // If every character is a number, the word thus is a number.
+    case "solde" => SOLDE
+    case "valoir" => COUTER
+    case p if Products.ProductsList(Products.ProductType.Beer).contains(p) ||
+              Products.ProductsList(Products.ProductType.Croissant).contains(p)
+          => MARQUE
+
+      //balance
+    case "mon" => ME
+    case "connaître" => CONNAITRE
+    case "solde" => SOLDE
+      //commande
+    case "commander" => COMMANDER
+    case "biere" => BIERE
+    case "croissant" => CROISSANT
+    case "chips" => CHIPS
+
+    case "et" => ET
+    case "ou" => OU
+
+    case "combien" => COMBIEN
     case _ => UNKNOWN
   }
 

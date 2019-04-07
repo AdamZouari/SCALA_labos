@@ -1,6 +1,5 @@
 package main.scala.Data
 
-import scala.collection.mutable
 
 object UsersInfo {
 
@@ -8,7 +7,12 @@ object UsersInfo {
   private var _activeUser: String = _
 
   // TODO: step 2 - create an attribute that will contain each user and its current balance.
-  private var accounts = ???
+
+
+  private val initialMoney = 30
+
+  private var accounts = collection.mutable.Map[String, Double]().withDefaultValue(initialMoney)
+
 
   /**
     * Update an account by decreasing its balance.
@@ -17,5 +21,37 @@ object UsersInfo {
     * @return the new balance
     */
   // TODO: step 2
-  def purchase(user: String, amount: Double): Double = ???
+  def purchase(user: String, amount: Double): Double = {
+    //no check if the user has enough money : we authorize credit,
+    // best way to control our users.
+    if( accounts.isDefinedAt(user) )
+      accounts(user) -= amount
+
+    accounts(user)
+  }
+
+  private def add(user: String) : Any = {
+
+    if( ! accounts.isDefinedAt(user) )
+      accounts(user) = initialMoney
+
+  }
+
+  def login(user: String) : Any = {
+    add(user)
+    _activeUser = user
+  }
+
+  def isLoggedIn() : Boolean = {
+    _activeUser != null
+  }
+
+  def getCurrentUser() : String = {
+    _activeUser
+  }
+
+  def balance(user: String) : Double = {
+    accounts(user)
+  }
 }
+

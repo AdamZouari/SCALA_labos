@@ -2,6 +2,7 @@ package main.scala.Chat
 
 import Tokens._
 import Tree._
+import main.scala.Data.Products
 
 // TODO - step 4
 class Parser(tokenizer: Tokenizer) {
@@ -34,22 +35,106 @@ class Parser(tokenizer: Tokenizer) {
   /** the root method of the parser: parses an entry phrase */
   def parsePhrases() : ExprTree = {
     if (curToken == BONJOUR) eat(BONJOUR)
-    if (curToken == JE )
-    {
+    if (curToken == JE ) {
       eat(JE)
-      eat(ETRE)
-      if (curToken == ASSOIFFE) {
-        // Here we do not "eat" the token, because we want to have a custom 2-parameters "expected" if the user gave a wrong token.
-        readToken()
-        Thirsty()
+      if(curToken == ETRE){
+        eat(ETRE)
+        if (curToken == ASSOIFFE) {
+          // Here we do not "eat" the token, because we want to have a custom 2-parameters "expected" if the user gave a wrong token.
+          readToken()
+          Thirsty()
+        }
+        else if (curToken == AFFAME) {
+          readToken()
+          Hungry()
+        }
+        else if (curToken == PSEUDO){
+          val currUser = curValue.substring(1).toLowerCase()
+          eat(PSEUDO)
+          Authenticate(currUser)
+        }
+        else expected(ASSOIFFE, AFFAME, PSEUDO)
+
       }
-      else if (curToken == AFFAME) {
-        readToken()
-        Hungry()
+      else if(curToken == VOULOIR){
+        eat(VOULOIR)
+        if(curToken == COMMANDER){
+          eat(COMMANDER)
+          takeOrder(parseOrder())
+        }
+        else if (curToken == CONNAITRE){
+          eat(CONNAITRE)
+          eat(ME)
+          eat(SOLDE)
+          currentBalance()
+        }
+        else expected(CONNAITRE, COMMANDER)
       }
-      else expected(ASSOIFFE, AFFAME)
+      else expected(ETRE, VOULOIR)
     }
-    else expected(BONJOUR, JE)
+
+    else if (curToken == COMBIEN){
+      eat(COMBIEN)
+      eat(COUTER)
+      priceForItems(parseOrder())
+    }
+    else expected(BONJOUR, JE, COMBIEN)
+  }
+
+  def parseOrder() : ExprTree = {
+    var expr : ExprTree = parseArticle()
+
+    curToken match {
+      case ET => {
+        eat(ET)
+        and(expr, parseOrder())
+      }
+      case OU => {
+        eat(OU)
+        or(expr, parseOrder())
+      }
+      case _ => expr
+    }
+  }
+
+  def parseArticle() : ExprTree = {
+    var nProducts : Int = 1
+    var brand : String = null
+    var typeProduct : Products.ProductType.Value = null
+
+    if(curToken == NUM) {
+      nProducts = curValue.toInt
+      eat(NUM)
+
+    }else{ //if we don't have a number, assume one
+      readToken()
+    }
+
+    //check if we have a correct type of product
+ //   if(Products.ProductType.isProductType(curValue)){
+    if(curToken == BIERE) {
+      typeProduct = Products.ProductType.Beer
+      eat(BIERE)
+    }else if (curToken == CROISSANT) {
+      typeProduct = Products.ProductType.Croissant
+      eat(CROISSANT)
+
+    }else expected(BIERE, CROISSANT, CHIPS)
+
+    //set by-default brand
+    brand = Products.defaultType(typeProduct)
+   // readToken()
+
+    //set brand if user has given one
+    if(curToken == MARQUE){
+      brand = curValue
+      eat(MARQUE)
+    }
+   // if(Products.ProductsList(typeProduct).contains() )
+   // if(Products.ProductType.)
+
+    //if(Products.ProductsList)
+    Articles(Article(typeProduct,brand), nProducts)
   }
 
   // Start the process by reading the first token.
