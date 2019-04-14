@@ -54,7 +54,7 @@ object Anagrams extends App {
     * "aet"-> List("ate", "eat", "tea")
     */
 
-  val matchingWords: Map[FingerPrint, List[Word]] = dictionary.groupBy(word => fingerPrint(word))
+  val matchingWords: Map[FingerPrint, List[Word]] = dictionary2.groupBy(word => fingerPrint(word))
   println(matchingWords)
 
   /** Returns all the anagrams of a given word. */
@@ -97,7 +97,7 @@ object Anagrams extends App {
   def subtract(x: FingerPrint, y: FingerPrint): FingerPrint = x match {
 
     case error if !subseqs(x).contains(y) => ""
-    case _ => x.toList.diff(y.toList).mkString("")
+    case _ => x.toList.diff(y.toList).mkString
 
   }
 
@@ -126,7 +126,7 @@ object Anagrams extends App {
    *  Note: There is only one anagram of an empty sentence.
    */
 
-  // TODO : NOT WORK
+  // TODO : SEEMS NOT WORKING
   def sentenceAnagrams(sentence: Sentence) :List[Sentence] = {
 
     for {
@@ -140,7 +140,6 @@ object Anagrams extends App {
 
   // Test code with for example:
    println(sentenceAnagrams(List("eat", "tea")))
-   //println(sentenceAnagrams(List("you", "olive")))
-   //println(sentenceAnagrams(List("I", "love", "you")))
-
+   println(sentenceAnagrams(List("you", "olive")))
+   println(sentenceAnagrams(List("I", "love", "you")))
 }
